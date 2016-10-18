@@ -1,0 +1,21 @@
+doctype html
+html
+  head
+    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
+    title Smndiaye
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  body
+    #user_nav
+      - if current_user
+        | Logged in as #{current_user.email}.
+        |  or
+        |  #{link_to "Log out", log_out_path}
+      - else
+        = link_to "Sign up", sign_up_path
+        |  or
+        |  #{link_to "log in", log_in_path}
+    - flash.each do |name, msg|
+      = content_tag :div, msg, :id => "flash_#{name}"
+    = yield
